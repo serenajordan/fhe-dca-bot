@@ -1,0 +1,23 @@
+{
+  "name": "fhe-dca-bot",
+  "version": "1.0.0",
+  "description": "Zama fhEVM DCA Bot - A fully homomorphic encryption enabled DCA trading bot",
+  "private": true,
+  "scripts": {
+    "install:all": "pnpm -C contracts i && pnpm -C app i",
+    "build": "pnpm -C contracts compile && pnpm -C app/packages/site build",
+    "dev:node": "pnpm -C contracts exec hardhat node",
+    "dev:app": "pnpm -C app/packages/site dev"
+  },
+  "keywords": [
+    "fhe",
+    "fhEVM",
+    "zama",
+    "dca",
+    "trading",
+    "bot",
+    "ethereum"
+  ],
+  "author": "",
+  "license": "MIT"
+}
