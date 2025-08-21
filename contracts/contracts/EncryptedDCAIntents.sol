@@ -86,4 +86,11 @@ contract EncryptedDCAIntents is SepoliaConfig {
     function getIntentActive(address user) external view returns (bool) {
         return intents[user].active;
     }
+
+    /// @notice Returns the encrypted perBuy amount for a user
+    /// @param user The address to check
+    /// @return The encrypted perBuy amount
+    function getPerBuyE(address user) external view returns (euint64) {
+        return intents[user].perBuy;
+    }
 }
