@@ -54,8 +54,8 @@ async function main() {
   const deployerBalance = await tokenContract.balanceOf(wallet.address);
   console.log(`📊 Deployer TOKEN_IN balance: ${ethers.formatUnits(deployerBalance, 18)}`);
 
-  // Fund amount (300,000 tokens)
-  const fundAmount = ethers.parseUnits("300000", 18);
+  // Fund amount (40,000 tokens)
+  const fundAmount = ethers.parseUnits("40000", 18);
   
   if (deployerBalance < fundAmount) {
     throw new Error(`Insufficient tokens. Need ${ethers.formatUnits(fundAmount, 18)}, have ${ethers.formatUnits(deployerBalance, 18)}`);
