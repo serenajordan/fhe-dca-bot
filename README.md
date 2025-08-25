@@ -88,6 +88,43 @@ TOKEN_OUT="0xDDae9A49198173473A531061D6b3115A6fa7E27f"
 3. **Deploy**: `vercel --prod`
 4. **Verify**: Check contract addresses and transactions
 
+## Vercel & CI
+
+This repo deploys the Next.js app (`app/packages/site`) on Vercel.
+
+**Build Commands (via `vercel.json`):**
+- Install: `corepack enable && corepack prepare pnpm@10.0.0 --activate && pnpm -w install --no-frozen-lockfile`
+- Build: `pnpm -C app/packages/site build`
+
+**Required Environment Variables**
+Set these for **Preview** and **Production** in Vercel.
+
+Public (safe to expose):
+- `NEXT_PUBLIC_CHAIN_ID`
+- `NEXT_PUBLIC_RPC`
+- `NEXT_PUBLIC_INTENTS`
+- `NEXT_PUBLIC_AGGREGATOR`
+- `NEXT_PUBLIC_EXECUTOR`
+- `NEXT_PUBLIC_ADAPTER`
+- `NEXT_PUBLIC_TOKEN_IN`
+- `NEXT_PUBLIC_TOKEN_OUT`
+- `NEXT_PUBLIC_DEMO_MODE` (on/off)
+
+Server-only (secrets):
+- `SEPOLIA_RPC_URL`
+- `EXECUTOR_KEY`
+- `UNISWAP_ROUTER`
+- `K_MIN`
+- `TIME_WINDOW`
+
+**CLI (optional):**
+```bash
+npm i -g vercel
+vercel login
+vercel link      # select the project
+vercel env add <KEY>    # repeat for each key above (Preview & Production)
+```
+
 ### Security Notes
 - **EXECUTOR_KEY**: Server-side only, never exposed to client
 - **Demo Mode**: Simulated swaps for demonstration
