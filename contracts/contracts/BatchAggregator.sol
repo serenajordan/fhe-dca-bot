@@ -12,6 +12,7 @@ contract BatchAggregator is SepoliaConfig {
     EncryptedDCAIntents public intents;
     uint256 public kMin;
     uint256 public timeWindowSecs;
+    address public owner;
 
     struct Batch {
         euint128 sum;          // encrypted sum of perBuy
@@ -27,6 +28,12 @@ contract BatchAggregator is SepoliaConfig {
 
     event BatchUpdated(bytes32 indexed pairKey, uint16 count, bool byK, bool byTime);
     event BatchConsumed(bytes32 indexed pairKey, uint16 count);
+    event DevEnqueued(address indexed user, uint256 perBuy);
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "only owner");
+        _;
+    }
 
     /// @notice Constructor
     /// @param intents_ The EncryptedDCAIntents contract address
@@ -40,6 +47,7 @@ contract BatchAggregator is SepoliaConfig {
         intents = EncryptedDCAIntents(intents_);
         kMin = kMin_;
         timeWindowSecs = timeWindowSecs_;
+        owner = msg.sender;
     }
 
     /// @notice Generate a unique key for a token pair
@@ -62,6 +70,8 @@ contract BatchAggregator is SepoliaConfig {
         if (!b.open) { 
             b.open = true; 
             b.firstTs = uint40(block.timestamp); 
+            // Initialize sum to zero for new batch
+            b.sum = FHE.asEuint128(0);
         }
 
         require(!included[key][msg.sender], "already in batch");
@@ -81,6 +91,41 @@ contract BatchAggregator is SepoliaConfig {
         included[key][msg.sender] = true;
         batchUsers[key].push(msg.sender);
 
+        emit BatchUpdated(key, b.count, readyByK(key), readyByTime(key));
+    }
+
+    /// @notice Development-only function to enqueue a user with a plain perBuy amount
+    /// @param tokenIn The input token address
+    /// @param tokenOut The output token address
+    /// @param user The user address to enqueue
+    /// @param perBuy The plain perBuy amount (will be encrypted internally)
+    function devEnqueue(address tokenIn, address tokenOut, address user, uint256 perBuy) external onlyOwner {
+        bytes32 key = pairKey(tokenIn, tokenOut);
+        Batch storage b = openBatch[key];
+
+        if (!b.open) { 
+            b.open = true; 
+            b.firstTs = uint40(block.timestamp); 
+            // Initialize sum to zero for new batch
+            b.sum = FHE.asEuint128(0);
+        }
+
+        require(!included[key][user], "already in batch");
+        
+        // Convert plain uint256 to euint64 and accumulate
+        euint64 encPerBuy = FHE.asEuint64(uint64(perBuy));
+        // widen to euint128 and add
+        euint128 addend = FHE.asEuint128(encPerBuy);
+        b.sum = FHE.add(b.sum, addend);
+        
+        // Allow the aggregator to use the encrypted values
+        FHE.allowThis(b.sum);
+
+        unchecked { b.count += 1; }
+        included[key][user] = true;
+        batchUsers[key].push(user);
+
+        emit DevEnqueued(user, perBuy);
         emit BatchUpdated(key, b.count, readyByK(key), readyByTime(key));
     }
 
