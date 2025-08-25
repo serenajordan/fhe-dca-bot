@@ -1,0 +1,161 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "IntentCancelled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "IntentCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "IntentUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "cancelIntent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "externalEuint128",
+            "name": "budget",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "externalEuint64",
+            "name": "perBuy",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "externalEuint32",
+            "name": "freq",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "externalEuint64",
+            "name": "start",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "externalEuint64",
+            "name": "end",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "externalEuint16",
+            "name": "dipBps",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "budgetProof",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "perBuyProof",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "freqProof",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "startProof",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "endProof",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "dipBpsProof",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct EncryptedDCAIntents.EncryptedIntentParams",
+        "name": "params",
+        "type": "tuple"
+      }
+    ],
+    "name": "createOrUpdateIntent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "getIntentActive",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "getPerBuyE",
+    "outputs": [
+      {
+        "internalType": "euint64",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

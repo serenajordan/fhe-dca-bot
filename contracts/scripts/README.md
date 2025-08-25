@@ -64,6 +64,22 @@ pnpm run deploy:sepolia
 ### Optional Environment Variables
 
 - `KEEPER_FEE_BPS`: Keeper fee in basis points (default: 10 = 0.10%)
+- `K_MIN`: K-anonymity minimum users (default: 3 for localhost, 10 for production)
+- `TIME_WINDOW`: Time window in seconds (default: 60 for localhost, 900 for production)
+
+### Network-Specific Defaults
+
+The deployment script automatically adjusts defaults based on the network:
+
+**Localhost Network:**
+- `K_MIN`: 3 users (faster testing)
+- `TIME_WINDOW`: 60 seconds (1 minute)
+
+**Production Networks (Sepolia, Mainnet):**
+- `K_MIN`: 10 users (higher privacy)
+- `TIME_WINDOW`: 900 seconds (15 minutes)
+
+You can override these defaults by setting the environment variables explicitly.
 
 ### Output
 
@@ -158,3 +174,67 @@ Mnemonic: test test test test test test test test test test test junk
 - **Contract Interaction**: Use addresses for contract calls
 - **Development**: Account 0 is deployer, 1-9 for testing
 - **Debugging**: Verify account balances and transactions
+
+## Demo Script (`demo-run.ts`)
+
+Sets up a complete local demo pipeline for testing the DCA system.
+
+### Usage
+
+```bash
+# Run demo with FHEVM mock environment (full functionality)
+pnpm run demo:run
+
+# Run demo with hardhat network (simplified)
+pnpm hardhat run scripts/demo-run.ts --network hardhat
+```
+
+### What it Does
+
+1. **Loads Deployment Data**: Reads contract addresses from `deployments/localhost.json`
+2. **Creates Encrypted Intents**: Creates DCA intents for 3 users (when FHEVM is available)
+3. **Enqueues Users**: Adds users to the batch aggregator
+4. **Funds Adapter**: Mints TOKEN_IN to the adapter for swaps
+5. **Fast-forwards Time**: Advances time by 901 seconds to trigger time-based execution
+
+### Environment Requirements
+
+- **Deployment**: Must run `pnpm run deploy:local` first
+- **Mock Tokens**: Must run `eval $(pnpm run deploy:mocks:eval)` first
+- **FHEVM Support**: For full functionality, requires FHEVM mock environment
+
+### Output
+
+The script will:
+1. Load all contract addresses and configuration
+2. Create encrypted intents for 3 test users (if FHEVM available)
+3. Enqueue users into the batch aggregator
+4. Fund the adapter with 100k TOKEN_IN
+5. Fast-forward time by 901 seconds
+6. Provide instructions for running the keeper
+
+### Demo Workflow
+
+```bash
+# 1. Start hardhat node (in one terminal)
+pnpm run dev:node
+
+# 2. Deploy mocks and set environment variables
+eval $(pnpm run deploy:mocks:eval)
+
+# 3. Deploy main contracts
+pnpm run deploy:local
+
+# 4. Run demo setup
+pnpm run demo:run
+
+# 5. Start keeper (in another terminal)
+pnpm run keeper:local
+```
+
+### Fallback Mode
+
+If FHEVM is not available, the script runs in simplified mode:
+- Skips encrypted intent creation
+- Still funds the adapter and fast-forwards time
+- Provides basic setup for keeper testing

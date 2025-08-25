@@ -1,0 +1,9 @@
+// Contract addresses for Sepolia deployment
+export const ADDRESSES = {
+  intents: "0xf13F6f03774CD78ab130679E906B0A771c5F21B2",
+  aggregator: "0x518F36e11d29574D529b6E9bB6D6C0961f364B80",
+  adapter: "0xb1397a3985569e8bD90EbDcf1897659dE8F94089",
+  executor: "0x530F7cAC12F89E12dfc920b9A07d4a2523206555",
+  tokenIn: "0xBF97A27EDc0EA3db66687527f07e6D26A18ecb18",
+  tokenOut: "0xDDae9A49198173473A531061D6b3115A6fa7E27f"
+} as const;
