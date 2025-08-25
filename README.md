@@ -22,11 +22,11 @@ User Intent (Encrypted) → BatchAggregator → DcaExecutor → DexAdapter → U
 - **DexAdapter**: `0xbCA4DD5266df830d6c479bB53456aCbd06663D2f`
 
 ### Example Transactions
-1. **Fund Adapter**: `0x053d3e6fc829d7a1d4d7f6fe0179e014fbe981830c6612d9d167644fc287cee8`
-2. **Intent 1**: `0xfc8f54c734719bd266d539c8fdabbb5d879a81f8b1183ad8d4a01c2e1c5a424f`
-3. **Intent 2**: `0x2bbe0a4933789b0b62d7d1585021c365a887ef0fe6a662c6b8bc8fdab29e36ff`
-4. **Intent 3**: `0x57912f3793f20f805fe1f01835a7c9173bc43ef30de6b4420e7659aee88103bb`
-5. **Execute Batch**: `0xba92ce35f44ab67612ce91e845e1d052de289e471ddc56498efd1145b49d96b1`
+1. **Fund Adapter**: `0xa7dbbd4f64d960702c495b4e1856f067243b151b468a15150f337822094000a0`
+2. **Intent 1**: `0x4d644cc2fb43d2a5ef03bbc45a81779cc3f635bf5c11f207093b111828dc3785`
+3. **Intent 2**: `0x22a3d3e8f2d5762bf5e5018f8fd1b657e83e6eafc2084ca072d17e1a6fd7aa17`
+4. **Intent 3**: `0x04f3fdc9ffa8e0a54a33302496020d5475fb043f678d9a9fd2f18179fbc82eb8`
+5. **Execute Batch**: `0xb89475223bbae0196f688f26604f3f17054f59e863e60a7bb251b125cd7ce07a`
 
 ## 🛠️ Local Development
 
@@ -87,6 +87,43 @@ TOKEN_OUT="0xDDae9A49198173473A531061D6b3115A6fa7E27f"
 2. **Set Environment Variables** in Vercel dashboard
 3. **Deploy**: `vercel --prod`
 4. **Verify**: Check contract addresses and transactions
+
+## Vercel & CI
+
+This repo deploys the Next.js app (`app/packages/site`) on Vercel.
+
+**Build Commands (via `vercel.json`):**
+- Install: `corepack enable && corepack prepare pnpm@10.0.0 --activate && pnpm -w install --no-frozen-lockfile`
+- Build: `pnpm -C app/packages/site build`
+
+**Required Environment Variables**
+Set these for **Preview** and **Production** in Vercel.
+
+Public (safe to expose):
+- `NEXT_PUBLIC_CHAIN_ID`
+- `NEXT_PUBLIC_RPC`
+- `NEXT_PUBLIC_INTENTS`
+- `NEXT_PUBLIC_AGGREGATOR`
+- `NEXT_PUBLIC_EXECUTOR`
+- `NEXT_PUBLIC_ADAPTER`
+- `NEXT_PUBLIC_TOKEN_IN`
+- `NEXT_PUBLIC_TOKEN_OUT`
+- `NEXT_PUBLIC_DEMO_MODE` (on/off)
+
+Server-only (secrets):
+- `SEPOLIA_RPC_URL`
+- `EXECUTOR_KEY`
+- `UNISWAP_ROUTER`
+- `K_MIN`
+- `TIME_WINDOW`
+
+**CLI (optional):**
+```bash
+npm i -g vercel
+vercel login
+vercel link      # select the project
+vercel env add <KEY>    # repeat for each key above (Preview & Production)
+```
 
 ### Security Notes
 - **EXECUTOR_KEY**: Server-side only, never exposed to client

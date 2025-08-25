@@ -1,6 +1,7 @@
 {
-  "buildCommand": "cd app/packages/site && pnpm install && pnpm build",
-  "outputDirectory": "app/packages/site/.next",
-  "installCommand": "pnpm install",
-  "framework": "nextjs"
+  "version": 2,
+  "installCommand": "corepack enable && corepack prepare pnpm@10.0.0 --activate && pnpm -w install --no-frozen-lockfile",
+  "buildCommand": "pnpm -C app/packages/site build",
+  "framework": "nextjs",
+  "outputDirectory": "app/packages/site/.next"
 }
