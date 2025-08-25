@@ -102,6 +102,8 @@
     "keeper:local": "node scripts/keeper.js",
     "keeper:sepolia": "dotenv -e .env -- ts-node scripts/keeper-sepolia.ts --network sepolia --no-compile",
     "enqueue:demo": "hardhat run scripts/enqueue-demo.ts --network sepolia",
+    "fund:adapter": "ts-node scripts/fund-adapter.ts",
+    "check:adapter": "ts-node scripts/check-adapter-balance.ts",
     "whoami": "hardhat run scripts/whoami.ts --network sepolia"
   },
   "overrides": {

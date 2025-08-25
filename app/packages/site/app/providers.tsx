@@ -2,9 +2,9 @@
 
 import type { ReactNode } from "react";
 
-import { MetaMaskProvider } from "@/hooks/metamask/useMetaMaskProvider";
-import { InMemoryStorageProvider } from "@/hooks/useInMemoryStorage";
-import { MetaMaskEthersSignerProvider } from "@/hooks/metamask/useMetaMaskEthersSigner";
+import { MetaMaskProvider } from "../hooks/metamask/useMetaMaskProvider";
+import { InMemoryStorageProvider } from "../hooks/useInMemoryStorage";
+import { MetaMaskEthersSignerProvider } from "../hooks/metamask/useMetaMaskEthersSigner";
 
 type Props = {
   children: ReactNode;

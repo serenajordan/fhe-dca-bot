@@ -3,15 +3,11 @@ import { useEffect, useState } from "react";
 import { EXPLORER_URL } from "../../src/config";
 
 interface StatusData {
+  block: number;
   byK: boolean;
   byTime: boolean;
-  block?: number;
-  timestamp?: number;
-  network?: string;
-  contracts?: {
-    aggregator: string;
-    executor: string;
-  };
+  aggregator: string;
+  executor: string;
   error?: string;
 }
 
@@ -76,32 +72,32 @@ export default function Status() {
             </div>
           )}
           
-          {status.contracts && (
-            <div className="text-sm space-y-1">
-              <div>
-                Aggregator: 
-                <a 
-                  href={`${EXPLORER_URL}/address/${status.contracts.aggregator}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline ml-1"
-                >
-                  {status.contracts.aggregator.slice(0, 8)}...{status.contracts.aggregator.slice(-6)}
-                </a>
-              </div>
-              <div>
-                Executor: 
-                <a 
-                  href={`${EXPLORER_URL}/address/${status.contracts.executor}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline ml-1"
-                >
-                  {status.contracts.executor.slice(0, 8)}...{status.contracts.executor.slice(-6)}
-                </a>
-              </div>
+          <div className="text-sm space-y-1">
+            <div>
+              Aggregator: 
+              <a 
+                href={`${EXPLORER_URL}/address/${status.aggregator}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline ml-1"
+              >
+                {status.aggregator.slice(0, 8)}...{status.aggregator.slice(-6)}
+              </a>
             </div>
-          )}
+            <div>
+              Executor: 
+              <a 
+                href={`${EXPLORER_URL}/address/${status.executor}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline ml-1"
+              >
+                {status.executor.slice(0, 8)}...{status.executor.slice(-6)}
+              </a>
+            </div>
+          </div>
+          
+
         </div>
       ) : null}
       

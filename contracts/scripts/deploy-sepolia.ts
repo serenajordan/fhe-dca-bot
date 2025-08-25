@@ -70,7 +70,8 @@ async function main() {
     ethers.ZeroAddress, 
     ethers.ZeroAddress,
     useDemoSwap,
-    demoPriceBps
+    demoPriceBps,
+    true // demoMode = true for Sepolia
   );
   await adapter.waitForDeployment();
   const adapterAddress = await adapter.getAddress();
@@ -93,7 +94,8 @@ async function main() {
     adapterAddress,
     mockTokenIn, // Use mock token addresses
     mockTokenOut, // Use mock token addresses
-    keeperFeeBps
+    keeperFeeBps,
+    true // demoMode = true for Sepolia
   );
   await executor.waitForDeployment();
   const executorAddress = await executor.getAddress();
@@ -116,7 +118,8 @@ async function main() {
       kMin,
       timeWindow,
       useDemoSwap,
-      demoPriceBps
+      demoPriceBps,
+      demoMode: true
     },
     deployedAt: new Date().toISOString()
   };

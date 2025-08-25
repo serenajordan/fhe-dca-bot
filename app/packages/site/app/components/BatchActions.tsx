@@ -3,9 +3,10 @@ import { useState } from "react";
 // EXPLORER_URL is used in the result display
 
 interface ExecuteResponse {
-  hash: string;
-  explorerUrl: string;
+  txHash: string;
+  blockNumber: number;
   gasUsed: string;
+  explorerUrl: string;
   status: string;
   error?: string;
 }
@@ -44,7 +45,7 @@ export default function BatchActions() {
         <button 
           className="px-3 py-2 rounded bg-gray-300 text-gray-600" 
           disabled
-          title="Enqueue functionality not implemented for demo"
+          title="Use DCA Form below to create encrypted intents"
         >
           Enqueue
         </button>
@@ -53,7 +54,7 @@ export default function BatchActions() {
           onClick={execute}
           disabled={loading}
         >
-          {loading ? 'Executing...' : 'Execute (demo)'}
+          {loading ? 'Executing...' : 'Execute (FHE)'}
         </button>
       </div>
       
@@ -74,9 +75,10 @@ export default function BatchActions() {
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline ml-1"
               >
-                {result.hash.slice(0, 8)}...{result.hash.slice(-6)}
+                {result.txHash.slice(0, 8)}...{result.txHash.slice(-6)}
               </a>
             </p>
+            <p>Block: {result.blockNumber.toLocaleString()}</p>
             <p>Gas used: {parseInt(result.gasUsed).toLocaleString()}</p>
           </div>
         </div>
