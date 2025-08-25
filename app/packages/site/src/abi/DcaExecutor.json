@@ -30,6 +30,11 @@
         "internalType": "uint16",
         "name": "_keeperFeeBps",
         "type": "uint16"
+      },
+      {
+        "internalType": "bool",
+        "name": "_demoMode",
+        "type": "bool"
       }
     ],
     "stateMutability": "nonpayable",
@@ -78,6 +83,25 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountIn",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountOut",
+        "type": "uint256"
+      }
+    ],
+    "name": "SwapExecuted",
+    "type": "event"
+  },
+  {
     "inputs": [],
     "name": "adapter",
     "outputs": [
@@ -98,6 +122,19 @@
         "internalType": "contract BatchAggregator",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "demoMode",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -140,6 +177,19 @@
         "internalType": "contract EncryptedDCAIntents",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "isExecutionAllowed",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "allowed",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",

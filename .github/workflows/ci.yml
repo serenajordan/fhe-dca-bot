@@ -1,0 +1,54 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Build contracts
+      run: pnpm -C contracts build
+      env:
+        SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
+    - name: Export ABIs
+      run: pnpm -C contracts export-abis
+
+    - name: Build frontend
+      run: pnpm -C app/packages/site build
+      env:
+        NEXT_PUBLIC_RPC: ${{ secrets.NEXT_PUBLIC_RPC }}
+        NEXT_PUBLIC_CHAIN_ID: 11155111
+        EXECUTOR_KEY: ${{ secrets.EXECUTOR_KEY }}
+        SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+
+    - name: Run tests
+      run: pnpm -C contracts test
+
+    - name: Lint contracts
+      run: pnpm -C contracts lint
+
+    - name: Lint frontend
+      run: pnpm -C app/packages/site lint

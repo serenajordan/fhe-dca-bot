@@ -60,12 +60,13 @@ async function main() {
   // eslint-disable-next-line no-constant-condition
   while (true) {
     try {
+      const isAllowed = await exec.isExecutionAllowed();
       const [byK, byTime] = await agg.readyToExecute(TOKEN_IN, TOKEN_OUT);
       const timestamp = new Date().toISOString();
       
-      console.log(`${timestamp} 📊 Status: Ready by K: ${byK}, Ready by Time: ${byTime}`);
+      console.log(`${timestamp} 📊 Status: Ready by K: ${byK}, Ready by Time: ${byTime}, Execution Allowed: ${isAllowed}`);
       
-      if (byK || byTime) {
+      if (isAllowed) {
         console.log(`🚀 Executing batch...`);
         
         const decryptedAmount = BigInt(DEMO_DECRYPTED_AMOUNT);

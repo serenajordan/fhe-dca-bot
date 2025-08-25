@@ -25,6 +25,11 @@
         "internalType": "uint256",
         "name": "_demoPriceBps",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_demoMode",
+        "type": "bool"
       }
     ],
     "stateMutability": "nonpayable",
@@ -48,6 +53,19 @@
     ],
     "name": "SwapAggregateExecuted",
     "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "demoMode",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "inputs": [],

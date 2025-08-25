@@ -11,6 +11,7 @@ contract DexAdapter {
     address public immutable tokenIn;
     address public immutable tokenOut;
     bool public immutable useDemoSwap;
+    bool public immutable demoMode;
     uint256 public immutable demoPriceBps; // Price in basis points (10000 = 1:1)
 
     event SwapAggregateExecuted(uint256 amountIn, uint256 amountOut);
@@ -21,17 +22,20 @@ contract DexAdapter {
     /// @param _tokenOut The output token address
     /// @param _useDemoSwap Whether to use demo swap instead of real router
     /// @param _demoPriceBps Demo price in basis points (10000 = 1:1)
+    /// @param _demoMode Whether to run in demo mode (skip Uniswap)
     constructor(
         address _router, 
         address _tokenIn, 
         address _tokenOut,
         bool _useDemoSwap,
-        uint256 _demoPriceBps
+        uint256 _demoPriceBps,
+        bool _demoMode
     ) {
         router = IDexRouter(_router);
         tokenIn = _tokenIn;
         tokenOut = _tokenOut;
         useDemoSwap = _useDemoSwap;
+        demoMode = _demoMode;
         demoPriceBps = _demoPriceBps;
     }
 
@@ -42,7 +46,7 @@ contract DexAdapter {
     /// @return amountOut The amount of output tokens received
     function swapAggregate(uint256 amountIn, uint256 minOut, address to) external returns (uint256 amountOut) {
         // Check if we should use demo swap
-        if (useDemoSwap || address(router) == address(0)) {
+        if (useDemoSwap || demoMode || address(router) == address(0)) {
             // Demo swap logic - skip token transfers for ZeroAddress tokens
             amountOut = (amountIn * demoPriceBps) / 10000;
             require(amountOut >= minOut, "DexAdapter: INSUFFICIENT_OUTPUT_AMOUNT");

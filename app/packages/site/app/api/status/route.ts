@@ -4,8 +4,20 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 // Read deployment data
-const deploymentPath = path.join(process.cwd(), '../../../contracts/deployments/sepolia.json');
-const deployment = JSON.parse(fs.readFileSync(deploymentPath, 'utf8'));
+const deploymentPath = path.join(process.cwd(), '../../../../contracts/deployments/sepolia.json');
+let deployment: { contracts: { aggregator: string; executor: string } };
+try {
+  deployment = JSON.parse(fs.readFileSync(deploymentPath, 'utf8'));
+} catch {
+  console.error('Failed to load deployment file:', deploymentPath);
+  // Return demo data if deployment file not found
+  deployment = {
+    contracts: {
+      aggregator: "0x6BB0054f650c47b72d888935A193041C56182ce9",
+      executor: "0x5f576d4f6C7590935488A3a3794353C438c7E0E2"
+    }
+  };
+}
 
 // BatchAggregator ABI for readyToExecute function
 const aggregatorABI = [
@@ -36,8 +48,6 @@ export async function GET() {
 
     // Get current block info
     const block = await provider.getBlockNumber();
-    const blockData = await provider.getBlock(block);
-    const timestamp = blockData?.timestamp || Math.floor(Date.now() / 1000);
 
     // Call readyToExecute with mock tokens
     const tokenIn = "0xBF97A27EDc0EA3db66687527f07e6D26A18ecb18";
@@ -45,22 +55,21 @@ export async function GET() {
     const [byK, byTime] = await aggregator.readyToExecute(tokenIn, tokenOut);
 
     return NextResponse.json({
+      block,
       byK,
       byTime,
-      block,
-      timestamp,
-      network: 'sepolia',
-      contracts: {
-        aggregator: deployment.contracts.aggregator,
-        executor: deployment.contracts.executor
-      }
+      aggregator: deployment.contracts.aggregator,
+      executor: deployment.contracts.executor
     });
 
   } catch (error: unknown) {
     console.error('Status API error:', error);
     return NextResponse.json({ 
+      block: 0,
       byK: false, 
       byTime: false, 
+      aggregator: deployment.contracts.aggregator,
+      executor: deployment.contracts.executor,
       error: error instanceof Error ? error.message : 'Failed to fetch status'
     }, { status: 200 });
   }
