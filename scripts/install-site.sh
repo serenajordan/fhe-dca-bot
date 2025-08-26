@@ -45,4 +45,16 @@ else
     echo "❌ react-dom package missing"
 fi
 
+# Force install ethers if still missing
+if [ ! -d "node_modules/ethers" ]; then
+    echo "🚨 ethers still missing, forcing installation..."
+    pnpm add ethers@^6.13.2 --force
+    if [ -d "node_modules/ethers" ]; then
+        echo "✅ ethers package now installed"
+    else
+        echo "❌ Failed to install ethers package"
+        exit 1
+    fi
+fi
+
 echo "✅ Site package installation complete"
