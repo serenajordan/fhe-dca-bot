@@ -6,6 +6,8 @@ The fhEVM DCA Bot demonstrates privacy-preserving Dollar-Cost Averaging using Fu
 
 ## 🚀 60-Second Demo Flow
 
+### Local Development Commands
+
 ### Step 1: Fund Adapter (10 seconds)
 ```bash
 pnpm -C contracts run fund:adapter
@@ -74,3 +76,19 @@ When all steps succeed, you've demonstrated:
 - ✅ Production-ready deployment
 
 **The fhEVM DCA Bot is ready for production use!**
+
+## 🚀 Deploy to Vercel
+
+### Checklist
+1. **Fork/Clone** this repository
+2. **Connect to Vercel** and set Root Directory to `app/packages/site`
+3. **Add Environment Variables** (see README.md Vercel section)
+4. **Deploy**: `vercel --prod`
+5. **Verify**: Check contract addresses and transactions
+
+### Latest Sepolia Transactions
+- **Funding**: [0xa7dbbd4f64d960702c495b4e1856f067243b151b468a15150f337822094000a0](https://sepolia.etherscan.io/tx/0xa7dbbd4f64d960702c495b4e1856f067243b151b468a15150f337822094000a0)
+- **Intent 1**: [0x4d644cc2fb43d2a5ef03bbc45a81779cc3f635bf5c11f207093b111828dc3785](https://sepolia.etherscan.io/tx/0x4d644cc2fb43d2a5ef03bbc45a81779cc3f635bf5c11f207093b111828dc3785)
+- **Intent 2**: [0x22a3d3e8f2d5762bf5e5018f8fd1b657e83e6eafc2084ca072d17e1a6fd7aa17](https://sepolia.etherscan.io/tx/0x22a3d3e8f2d5762bf5e5018f8fd1b657e83e6eafc2084ca072d17e1a6fd7aa17)
+- **Intent 3**: [0x04f3fdc9ffa8e0a54a33302496020d5475fb043f678d9a9fd2f18179fbc82eb8](https://sepolia.etherscan.io/tx/0x04f3fdc9ffa8e0a54a33302496020d5475fb043f678d9a9fd2f18179fbc82eb8)
+- **Execute**: [0xb89475223bbae0196f688f26604f3f17054f59e863e60a7bb251b125cd7ce07a](https://sepolia.etherscan.io/tx/0xb89475223bbae0196f688f26604f3f17054f59e863e60a7bb251b125cd7ce07a)

@@ -125,6 +125,35 @@ vercel link      # select the project
 vercel env add <KEY>    # repeat for each key above (Preview & Production)
 ```
 
+## Vercel Deploy (Monorepo)
+
+**⚠️ Important:** Project Root Directory in Vercel settings must be: `app/packages/site`
+
+Build & Output use `vercel.json` (already configured)
+
+**Environment Variables (examples):**
+
+Public (safe to expose):
+- `NEXT_PUBLIC_CHAIN_ID=11155111`
+- `NEXT_PUBLIC_RPC=https://sepolia.infura.io/v3/<YOUR_PROJECT_ID>`
+- `NEXT_PUBLIC_INTENTS=0x...`
+- `NEXT_PUBLIC_AGGREGATOR=0x...`
+- `NEXT_PUBLIC_EXECUTOR=0x...`
+- `NEXT_PUBLIC_ADAPTER=0x...`
+- `NEXT_PUBLIC_TOKEN_IN=0x...`
+- `NEXT_PUBLIC_TOKEN_OUT=0x...`
+- `NEXT_PUBLIC_DEMO_MODE=on` (or off)
+
+Server-only (Project → Settings → Environment Variables):
+- `EXECUTOR_KEY=<private key>`
+- `UNISWAP_ROUTER=0xeE567Fe1712Faf6149d80dA1E6934E354124CfE3`
+- `K_MIN=3, TIME_WINDOW=60`
+- `SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/<YOUR_PROJECT_ID>`
+
+**If Vercel shows "No Next.js version detected", verify:**
+- ✅ `app/packages/site/package.json` has "next" dependency
+- ✅ Project Root Directory is `app/packages/site`
+
 ### Security Notes
 - **EXECUTOR_KEY**: Server-side only, never exposed to client
 - **Demo Mode**: Simulated swaps for demonstration
