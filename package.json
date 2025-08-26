@@ -4,7 +4,7 @@
   "description": "Zama fhEVM DCA Bot - A fully homomorphic encryption enabled DCA trading bot",
   "private": true,
   "packageManager": "pnpm@10.0.0",
-  "workspaces": ["app", "contracts", "app/packages/*"],
+  "workspaces": ["contracts", "app/packages/*"],
   "engines": { "node": ">=18.18 <21" },
   "dependencies": {
     "next": "15.5.0"
