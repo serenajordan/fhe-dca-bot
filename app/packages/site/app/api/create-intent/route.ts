@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { ethers } from 'ethers';
-import { encryptDcaParams, DcaParams } from '@/lib/encryptDcaParams';
-import { ADDRESSES } from '@/addresses';
+import { encryptDcaParams, DcaParams } from '../../../src/lib/encryptDcaParams';
+import { ADDRESSES } from '../../../src/addresses';
 
 // EncryptedDCAIntents ABI for createIntent function
 const intentsABI = [
