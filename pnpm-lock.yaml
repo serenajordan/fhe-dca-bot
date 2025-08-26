@@ -12,6 +12,8 @@ importers:
         specifier: 15.5.0
         version: 15.5.0(@babel/core@7.28.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
+  app: {}
+
   app/packages/site:
     dependencies:
       '@zama-fhe/relayer-sdk':
@@ -24,7 +26,7 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       ethers:
-        specifier: ^6.11.1
+        specifier: ^6.13.2
         version: 6.15.0
       idb:
         specifier: ^8.0.3
