@@ -1,7 +1,7 @@
 {
   "version": 2,
   "framework": "nextjs",
-  "buildCommand": "pnpm build:site",
-  "installCommand": "corepack enable && corepack prepare pnpm@10.0.0 --activate && ./scripts/vercel-install.sh",
-  "outputDirectory": "app/packages/site/.next"
+  "buildCommand": "pnpm build",
+  "installCommand": "pnpm install",
+  "outputDirectory": ".next"
 }
