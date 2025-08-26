@@ -4,9 +4,8 @@
   "description": "Zama fhEVM DCA Bot - A fully homomorphic encryption enabled DCA trading bot",
   "private": true,
   "packageManager": "pnpm@10.0.0",
-  "engines": {
-    "node": ">=18.18 <21"
-  },
+  "workspaces": ["app/*", "contracts"],
+  "engines": { "node": ">=18.18 <21" },
   "scripts": {
     "install:all": "pnpm -C contracts i && pnpm -C app i",
     "build": "pnpm -C contracts compile && pnpm -C app/packages/site build",
@@ -14,6 +13,7 @@
     "dev:app": "pnpm -C app/packages/site dev",
     "dev:site": "pnpm -C app/packages/site dev",
     "build:site": "pnpm -C app/packages/site build",
+    "start:site": "pnpm -C app/packages/site start",
     "demo:sepolia": "pnpm -C contracts ts-node scripts/deploy-sepolia.ts && pnpm -C contracts ts-node scripts/keeper-sepolia.ts"
   },
   "keywords": [
@@ -26,6 +26,5 @@
     "ethereum"
   ],
   "author": "",
-  "license": "MIT",
-
+  "license": "MIT"
 }
