@@ -6,6 +6,9 @@
   "packageManager": "pnpm@10.0.0",
   "workspaces": ["app/packages/*"],
   "engines": { "node": ">=18.18 <21" },
+  "dependencies": {
+    "next": "15.5.0"
+  },
   "scripts": {
     "install:all": "pnpm -C contracts i && pnpm -C app i",
     "build": "pnpm -C contracts compile && pnpm -C app/packages/site build",
