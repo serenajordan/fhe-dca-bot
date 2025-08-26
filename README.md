@@ -277,3 +277,4 @@ This project is licensed under the MIT License.
 - [ ] Security measures in place
 - [ ] Documentation complete
 - [ ] No secrets committed to git
+# Force Vercel deployment
