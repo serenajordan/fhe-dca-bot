@@ -12,16 +12,17 @@
     "clean": "rimraf .next",
     "dev": "npm run clean && next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@zama-fhe/relayer-sdk": "0.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "idb": "^8.0.3",
-    "next": "15",
-    "react": "18",
-    "react-dom": "18",
+    "next": "15.5.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7"
   },
