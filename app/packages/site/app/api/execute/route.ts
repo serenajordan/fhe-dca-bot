@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { ethers } from 'ethers';
 import * as fs from 'fs';
 import * as path from 'path';
-import { decryptValue } from '@/lib/encryptDcaParams';
+// import { decryptValue } from '@/lib/encryptDcaParams';
 
 // Read deployment data
 const deploymentPath = path.join(process.cwd(), '../../../../contracts/deployments/sepolia.json');
@@ -27,11 +27,11 @@ const executorABI = [
   "function isExecutionAllowed() external view returns (bool allowed)"
 ];
 
-// BatchAggregator ABI for getting encrypted batch data
-const aggregatorABI = [
-  "function getOpenBatch(address tokenIn, address tokenOut) external view returns (bytes32 key, uint256 sum, uint16 count, bool open)",
-  "function readyToExecute(address tokenIn, address tokenOut) external view returns (bool byK, bool byTime)"
-];
+// BatchAggregator ABI for getting encrypted batch data (unused in demo mode)
+// const aggregatorABI = [
+//   "function getOpenBatch(address tokenIn, address tokenOut) external view returns (bytes32 key, uint256 sum, uint16 count, bool open)",
+//   "function readyToExecute(address tokenIn, address tokenOut) external view returns (bool byK, bool byTime)"
+// ];
 
 export async function POST() {
   try {
